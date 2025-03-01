@@ -2,10 +2,18 @@ const mongoose=require("mongoose");
 const bcrypt = require('bcrypt');
 
 const userShema=  mongoose.Schema({
-    name:{
+    firstname:{
         type:String,
-        required:[true,"name is required"],
+        required:[true,"first name is required"],
         trim:true
+    },
+    lastname:{
+        type:String,
+        required:[true,"last name is required"],
+        trim:true
+    },
+    about:{
+        type:String
     },
     slug:{
         type:String,
@@ -18,7 +26,7 @@ const userShema=  mongoose.Schema({
         lowercase:true,
     },
     phone:{
-    type:String
+    type:Number
     },
     profileImage:String,
     password:{

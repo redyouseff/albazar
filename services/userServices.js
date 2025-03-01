@@ -5,6 +5,8 @@ const { appError } = require('../appError')
 const { uploadSingleImage } = require('../middlewares/uploadImage')
 const sharp =require("sharp")
 const { v4: uuidv4 } = require('uuid');
+const bcrypt=require("bcrypt")
+const createToken = require('../utilts/createToken')
 
 
 
@@ -19,6 +21,8 @@ const reasizeImage =asyncHandler(async(req,res,next)=>{
     req.body.profileImage=fileName;
     next();
 })
+
+
 
 const creagteUser=asyncHandler(async(req,res,next)=>{
 const user = await userModel.create(req.body)
@@ -51,7 +55,8 @@ const getAllUser=asyncHandler(async(req,res,next)=>{
 
 const updateUser=asyncHandler(async(req,res,next)=>{
     const user= await  userModel.findByIdAndUpdate(req.params.id,{
-        name:req.body.name,
+        firstname:req.body.firstname,
+        lastname:req.body.lastname,
         slug:req.body.slug,
         email:req.body.email,
         phone:req.body.phone,
@@ -77,10 +82,61 @@ const deleteUser=asyncHandler(async(req,res,next)=>{
 
 })
 
+const getLoggedUser=asyncHandler(async(req,res,next)=>{
+    req.params.id=req.currentUser._id
+    next()
+})
+
+
+const updateLoggedUserPassword =asyncHandler(async(req,res,next)=>{
+    const user =await userModel.findByIdAndUpdate(req.currentUser._id,{
+        password:await bcrypt.hash(req.body.password,12),
+        passwordChangedAt:Date.now()
+    },{new:true})
+    
+    const token=createToken(user._id)
+    res.status(200).json({data:user,token:token})
+
+
+})
 
 
 
-module.exports=  {creagteUser,getSpesificUser,updateUser,deleteUser,getAllUser,reasizeImage,uploadImage}
+const updateLoggedUserData =asyncHandler(async(req,res,next)=>{
+    const user=await userModel.findByIdAndUpdate(req.currentUser._id,{
+        firstname:req.body.firstname,
+        lastname:req.body.lastname,
+        email:req.body.email,
+        phone:req.body.phone
+
+
+    },{new:true});
+
+    res.status(200).json({data:user})
+
+
+})
+
+
+const deleteLoggedUserData =asyncHandler(async(req,res,next)=>{
+
+    const user =await userModel.findByIdAndUpdate(req.currentUser._id,{
+        active:false
+    })
+    res.status(200).json({state:"success"});
+})
+
+
+
+
+
+
+
+
+module.exports=  {creagteUser,getSpesificUser,updateUser,deleteUser,getAllUser,reasizeImage,uploadImage,getLoggedUser,updateLoggedUserPassword
+    ,updateLoggedUserData,
+    deleteLoggedUserData
+}
 
 
 

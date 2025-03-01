@@ -16,10 +16,12 @@ const sendEmail = async (options) => {
   });
   
   const mailOpts = {
-    from: 'ALBazarApp <yousefmagdy.com>',
+    from: 'ALBazarApp <yousef@gmail.com>',
     to: options.email,
     subject: options.subject,
     text: options.message,
+    html: options.html,
+    
   };
   
   // 3) Send email
