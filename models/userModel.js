@@ -50,6 +50,7 @@ const userShema=  mongoose.Schema({
     passwordResetCode:String,
     passwordResetExpires:Date,
     passwordResetVerified:Boolean,
+    
 
     wishlist:[{
         type:mongoose.Schema.ObjectId,
@@ -101,5 +102,8 @@ userShema.pre("save",async function(next){
 
 
 const userModel=mongoose.model("user",userShema)
+
+
+
 
 module.exports=userModel;
