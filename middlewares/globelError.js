@@ -1,4 +1,4 @@
-const { appError } = require("../appError");
+const { appError } = require("../utilts/appError");
 
 const globelError=(err,req,res,next)=>{
    

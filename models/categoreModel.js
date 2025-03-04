@@ -25,22 +25,21 @@ const categoreSchema=mongoose.Schema({
 },{timestamps:true})
 
 const setImageUrl=(doc)=>{
-    if(doc.image){
-
  
-    const imageUrl=`${process.env.BASE_URL}/categore/${doc.image}`
-    doc.image=imageUrl
-}
+    if(doc.image && !doc.image.startsWith("http")){
+        const imageUrl=`${process.env.BASE_URL}/categore/${doc.image}`;
+        doc.image=imageUrl;
+    }
 }
 
 
 categoreSchema.post("init",(doc)=>{
-    setImageUrl(doc)
-
+    setImageUrl(doc);
 })
 categoreSchema.post("save",(doc)=>{
     setImageUrl(doc)
 })
+
 
 
 

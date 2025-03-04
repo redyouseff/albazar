@@ -1,5 +1,5 @@
 const multer =require("multer");
-const { appError } = require("../appError");
+const { appError } = require("../utilts/appError");
 
 const multerOptions=()=>{
 
@@ -30,7 +30,8 @@ const uploadSingleImage=(fileName)=>{
 }
 
 const uploadMixedImage=(arrayOfField)=>{
-    return multerOptions().fields(`${arrayOfField}`)
+
+    return multerOptions().fields(arrayOfField);
 }
 
 

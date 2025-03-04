@@ -1,70 +1,129 @@
-const mongoose=require("mongoose");
+const mongoose = require("mongoose");
 
-const listingShema=mongoose.Schema({
-   
-    title:{
-        type:String,
-        required:[true,"title is required "],
-        trim:true,
-        minLength:[5,"too short title"],
-        maxLength:[200,"too long title "]
-    },
-    slug:{
-        type:String,
-        required:true,
-        lowercase:true
-    },
-    description:{
-        type:String,
-        required:[true,"description is required"],
-        minLength:[30,"too short descripton "]
-
-    },
-    sold:{
-        Boolean,
-        default:false
+const listingSchema = mongoose.Schema(
+  {
+    "ad title": {
+      type: String,
+      required: [true, "title is required"],
+      trim: true,
+      minLength: [5, "too short title"],
+      maxLength: [200, "too long title"],
     },
 
-    price:{
-        type:Number,
-        required:[true,"price is required "],
-        trim:true,
-    },
-    images:[String],
-    imageCover:{
-        type:String,
-        required:[true,"image cover is required"]
+    "description": {
+      type: String,
+      required: [true, "description is required"],
+      minLength: [30, "too short description"],
     },
 
-    categore:{
-        type:mongoose.Schema.ObjectId,
-        ref:"categore",
-        required:[true,"categore is required"]
-    },
-    
-
-
-    ratingAverage:{
-        type:Number,
-        min:[1,"the number must be greater than 1"],
-        max:[5,"the number cant be greater than 5"]
-
-    },
-     
-    ratingQuantity:{
-        type:Number,
-        default:0
+    "property type": {
+      type: String,
     },
 
+    "area": {
+      type: String,
+    },
 
-    
+    "sale or rent": {
+      type: String,
+    },
 
-},{timestamps:true,
+    "amenities": [String],
+
+    "number of rooms": {
+      type: Number,
+    },
+
+    "number of bathrooms": {
+      type: Number,
+    },
+
+    "furnishing": {
+      type: Boolean,
+    },
+
+    "property condition": {
+      type: String,
+    },
+
+    "delivery conditions": {
+      type: String,
+    },
+
+    "property location": {
+      type: String,
+    },
+
+    "rental rate": {
+      type: String,
+    },
+
+    "rental fees": {
+      type: String,
+    },
+
+    "security deposit": {
+      type: Number,
+    },
+
+    "payment method": {
+      type: String,
+    },
+
+    "price": {
+      type: String,
+    },
+
+    "negotiable": {
+      type: Boolean,
+    },
+
+    "name": {
+      type: String,
+    },
+
+    "phone number": {
+      type: Number,
+    },
+
+    "contact method": {
+      type: String,
+    },
+
+    "images": [String],
+
+    "brand": {
+      type: String,
+    },
+
+    "additional features": [String],
+
+    "fuel type": [String],
+
+    "category": {
+      type: mongoose.Schema.ObjectId,
+      ref: "category",
+      required: [true, "category is required"],
+    },
+
+    "rating average": {
+      type: Number,
+      min: [1, "the number must be greater than 1"],
+      max: [5, "the number can't be greater than 5"],
+    },
+
+    "rating quantity": {
+      type: Number,
+      default: 0,
+    },
+  },
+  {
+    timestamps: true,
     toJSON: { virtuals: true },
-    toObject: { virtuals: true }
-})
+    toObject: { virtuals: true },
+  }
+);
 
+const listingModel = mongoose.model("listing", listingSchema);
 
-const listingModel=mongoose.model("listing",listingShema);
-
-module.exports=listingModel;
+module.exports = listingModel;
