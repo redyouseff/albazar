@@ -105,6 +105,11 @@ const listingSchema = mongoose.Schema(
       ref: "category",
       required: [true, "category is required"],
     },
+    "user":{
+      type:mongoose.Schema.ObjectId,
+      ref:"user",
+
+    },
 
     "rating average": {
       type: Number,
@@ -123,6 +128,28 @@ const listingSchema = mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
+
+
+
+
+
+const setImageUrl = (doc) => {
+  if (doc.images && Array.isArray(doc.images)) {
+    const image = doc.images.map((item) => `${process.env.BASE_URL}/listing/${item}`);
+    doc.images = image;
+  }
+};
+
+listingSchema.post("init", (doc) => {
+  setImageUrl(doc);
+});
+
+listingSchema.post("save", (doc) => {
+  setImageUrl(doc);
+});
+
+
+
 
 const listingModel = mongoose.model("listing", listingSchema);
 

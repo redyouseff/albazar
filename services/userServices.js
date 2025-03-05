@@ -23,7 +23,7 @@ const reasizeImage =asyncHandler(async(req,res,next)=>{
         req.body.profileImage=fileName;
 
     }
-    console.log("jj")
+
  
     next();
 })
