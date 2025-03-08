@@ -7,6 +7,7 @@ const sharp =require("sharp")
 const { v4: uuidv4 } = require('uuid');
 const bcrypt=require("bcrypt")
 const createToken = require('../utilts/createToken')
+const { getAll } = require('./handlersFactory')
 
 
 
@@ -50,13 +51,7 @@ const getSpesificUser=asyncHandler(async(req,res,next)=>{
 
 
 
-const getAllUser=asyncHandler(async(req,res,next)=>{
-    const user=await userModel.find()
-    if(!user){
-        next (new appError("there is no users ",400));
-    }
-    res.status(200).json({state:"success",length:user.length,data:user})
-})
+const getAllUser=getAll(userModel)
 
 
 const updateUser=asyncHandler(async(req,res,next)=>{

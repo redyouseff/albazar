@@ -9,7 +9,7 @@ class apiFeatures{
 
     filter(){
         let quearyStr={...this.queryStringObject};
-        const excludesFields=["page","limit","sort","fields"]
+        const excludesFields=["page","limit","sort","fields","keyword"]
         excludesFields.forEach((field)=>delete quearyStr[field]);
         let quearyString=JSON.stringify(quearyStr);
      
@@ -44,18 +44,31 @@ class apiFeatures{
 
     search(modelName){
         if(this.queryStringObject.keyword){
-            if(modelName=="product"){
             let query ={};
+            if(modelName=="listing"){
+            
             query.$or = [
-                { title: { $regex: this.queryStringObject.keyword, $options: 'i' } },
+                { 'ad title': { $regex: this.queryStringObject.keyword, $options: 'i' } },
                 { description: { $regex: this.queryStringObject.keyword, $options: 'i' } },
               ];
+              
+            this.mongooseQuery=this.mongooseQuery.find(query)
+            
+        }
+        else if (modelName=="user"){
+            
+
+            query.$or=[
+
+                {firstname:{$regex:this.queryStringObject.keyword,$options:'i'}},
+                {lastname:{$regex:this.queryStringObject.keyword,$options:'i'}},
+
+            ]
+            
             this.mongooseQuery=this.mongooseQuery.find(query)
         }
-        else{
-            query= { name: { $regex: this.queryStringObject.keyword, $options: 'i' } }
         }
-        }
+
         return this ;
     }
 
@@ -83,7 +96,6 @@ class apiFeatures{
        
         this.mongooseQuery=this.mongooseQuery.skip(skip).limit(limit)
       
-
 
         return this
 

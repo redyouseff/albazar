@@ -73,6 +73,8 @@ const getOne=(model,populatetionOptions)=>{
 
 
 const getAll=(model)=>{
+   
+
     return asyncHandler(async(req,res,next)=>{
         let filter={}
         if(req.filterObj){
@@ -80,6 +82,7 @@ const getAll=(model)=>{
             filter=req.filterObj 
 
         }
+        
      
         const countDocuments=await model.countDocuments();
         const queryStringObject={...req.query}
@@ -87,6 +90,7 @@ const getAll=(model)=>{
         
         
         const Features= new apiFeatures(queryStringObject,model.find(filter))
+        .search(model.modelName)
         .paginate(countDocuments)
         .filter()
         .sort()
