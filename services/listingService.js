@@ -12,7 +12,7 @@ const uploadlistingImag=  uploadMixedImage([
    
     {
         name:"images",
-        maxCount: 5
+        maxCount: 20
     }
 ])
 
