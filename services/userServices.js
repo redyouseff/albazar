@@ -80,6 +80,7 @@ const deleteUser=asyncHandler(async(req,res,next)=>{
         next (new appErro(`there is no user for this id ${req.params.id}`,400));
     }
     res.status(200).json({message:"user is deleted"});
+    console.log("jj")
 
 })
 
