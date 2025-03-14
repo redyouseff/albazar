@@ -105,10 +105,10 @@ const listingSchema = mongoose.Schema(
       ref: "category",
       required: [true, "category is required"],
     },
-    "user":{
-      type:mongoose.Schema.ObjectId,
-      ref:"user",
 
+    "user": {
+      type: mongoose.Schema.ObjectId,
+      ref: "user",
     },
 
     "rating average": {
@@ -121,6 +121,20 @@ const listingSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
+
+   
+    "transmission type": {
+      type: String,
+    },
+
+    "kilometers": {
+      type: String,
+    },
+
+    "down payment": {
+      type: String,
+    },
+
   },
   {
     timestamps: true,
@@ -128,10 +142,6 @@ const listingSchema = mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
-
-
-
-
 
 const setImageUrl = (doc) => {
   if (doc.images && Array.isArray(doc.images)) {
@@ -147,9 +157,6 @@ listingSchema.post("init", (doc) => {
 listingSchema.post("save", (doc) => {
   setImageUrl(doc);
 });
-
-
-
 
 const listingModel = mongoose.model("listing", listingSchema);
 

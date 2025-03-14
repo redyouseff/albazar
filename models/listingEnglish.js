@@ -1,6 +1,7 @@
 const mongoose=require("mongoose");
 
 const listingShema=mongoose.Schema({
+  
    
    " عنوان الاعلان":{
         type:String,
@@ -81,6 +82,11 @@ const listingShema=mongoose.Schema({
     },
     "اضافات":[String],
     "نوع الوقود":[String],
+    "ناقل الحركه ":String,
+   "كيلو مترات ":String,
+   "مقدم":String,
+
+  
 
     التصنيف:{
         type:mongoose.Schema.ObjectId,
