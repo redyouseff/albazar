@@ -83,7 +83,7 @@ const listingSchema = mongoose.Schema(
     },
 
     "phone number": {
-      type: Number,
+      type: String,
     },
 
     "contact method": {
