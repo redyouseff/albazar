@@ -7,11 +7,12 @@ const {appError}=require("./utilts/appError")
 const {dbConnection}=require('./config/dbConnection');
 const { globelError } = require("./middlewares/globelError");
 const mountRoute = require("./routes/mainRoute");
+const { app, server } = require("./config/socker");
 
 
 
 
-const app=new express();
+
 app.use(cors())
 app.options("*",cors())
 dotenv.config({path:"config.env"})
@@ -21,8 +22,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
- const server= app.listen(process.env.PORT,(req,res)=>{
-    console.log("Jjj")
+  server.listen(process.env.PORT,(req,res)=>{
+    
+
     console.log(`app listen on port ${process.env.PORT}`,process.env.NODE_ENV);
 
 
@@ -37,7 +39,9 @@ app.use("*",(req,res,next)=>{
     next(new appError(`cant find this url ${req.originalUrl}`,400))
 })
 
+
 app.use(globelError)
+
 
 
 

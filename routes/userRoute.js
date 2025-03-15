@@ -14,7 +14,7 @@ router.route("/deleteMyData").put(protect,deleteLoggedUserData)
 
 
 router.route("/").post(uploadImage,reasizeImage,creagteUser);
-router.route("/").get(protect,allowedTo("user"),getAllUser)
+router.route("/").get(getAllUser)
 router.route("/:id").get(getSpesificUser);
 router.route("/:id").put(updateUser);
 router.route("/:id").delete(deleteUser);
