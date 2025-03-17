@@ -5,6 +5,7 @@ const { createOne, getAll, getOne, deletOne, updateOne } = require("./handlersFa
 const asyncHandler = require('express-async-handler')
 const { v4: uuidv4 } = require('uuid');
 const sharp = require("sharp");
+const { appError } = require("../utilts/appError");
 
 
 
@@ -44,11 +45,18 @@ const getAllListing=getAll(listingModel);
 const getSpesificListing=getOne(listingModel);
 const updateListing=updateOne(listingModel);
 const deleteListing=deletOne(listingModel)
+const getLoggedUserListing=asyncHandler(async(req,res,next)=>{
+    const listing =await listingModel.find({user:req.currentUser._id});
+    if (!listing){
+        return next (new appError("there is no listing for this user"))
+    }
+    res.status(200).json({data:listing})
+})
 
 
 
 
 
-module.exports={creatListing,uploadlistingImag,getAllListing,getSpesificListing,deleteListing,updateListing,reasizeImage}
+module.exports={creatListing,uploadlistingImag,getAllListing,getSpesificListing,deleteListing,updateListing,reasizeImage,getLoggedUserListing}
 
 

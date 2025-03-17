@@ -101,7 +101,7 @@ const getMessages=asyncHandler(async(req,res,next)=>{
 
 
    
-    res.status(200).json(message)
+    res.status(200).json(message)  
 
 })
 

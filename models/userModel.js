@@ -52,19 +52,22 @@ const userShema=  mongoose.Schema({
     passwordResetVerified:Boolean,
     
 
-    wishlist:[{
+    favourite:[{
         type:mongoose.Schema.ObjectId,
+        ref:"listing"
        
     }],
 
 
     addresses:[{
+
         id:{type:mongoose.Schema.Types.ObjectId},
         alias:String,
         details:String,
         phone:String,
         city:String,
         postalCode:String
+
     }]
 
 
