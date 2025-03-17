@@ -117,10 +117,12 @@ const listingSchema = mongoose.Schema(
       max: [5, "the number can't be greater than 5"],
     },
 
+
     "rating quantity": {
       type: Number,
       default: 0,
     },
+
 
    
     "transmission type": {
@@ -134,6 +136,12 @@ const listingSchema = mongoose.Schema(
     "down payment": {
       type: String,
     },
+    "lat":{
+      type:Number
+    },
+    "long":{
+      type:Number
+    }
 
   },
   {
