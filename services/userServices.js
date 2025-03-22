@@ -17,6 +17,7 @@ const reasizeImage =asyncHandler(async(req,res,next)=>{
     const fileName=`user-${uuidv4()}-${Date.now()}.jpeg`;
     
     if(req?.file?.buffer){
+     
         sharp(req.file.buffer).resize(600,600)
         .toFormat("jpeg")
         .jpeg({quality:90})
@@ -25,7 +26,8 @@ const reasizeImage =asyncHandler(async(req,res,next)=>{
 
     }
 
- 
+
+
     next();
 })
 
@@ -62,6 +64,7 @@ const updateUser=asyncHandler(async(req,res,next)=>{
         email:req.body.email,
         phone:req.body.phone,
         role:req.body.role,
+        profileImage:req.body.profileImage
 
     },{new:true})
 

@@ -9,18 +9,20 @@ class apiFeatures{
 
     filter(){
         let quearyStr={...this.queryStringObject};
+     
         const excludesFields=["page","limit","sort","fields","keyword"]
         excludesFields.forEach((field)=>delete quearyStr[field]);
         let quearyString=JSON.stringify(quearyStr);
-     
         quearyString = quearyString.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
 
+        
         this.mongooseQuery=this.mongooseQuery.find(JSON.parse(quearyString))
       
       
         return this
 
     }
+   
 
     sort(){
         
@@ -34,6 +36,9 @@ class apiFeatures{
     
     }
 
+
+
+
     limitFields(){
         if(this.queryStringObject.fields){
             const field=this.queryStringObject.fields.split(",").join(" ")
@@ -41,6 +46,9 @@ class apiFeatures{
         }
         return this
     }
+
+
+
 
     search(modelName){
         if(this.queryStringObject.keyword){

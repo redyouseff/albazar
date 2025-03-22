@@ -6,6 +6,7 @@ const asyncHandler = require('express-async-handler')
 const { v4: uuidv4 } = require('uuid');
 const sharp = require("sharp");
 const { appError } = require("../utilts/appError");
+const { post } = require("../routes/userRoute");
 
 
 
@@ -45,18 +46,64 @@ const getAllListing=getAll(listingModel);
 const getSpesificListing=getOne(listingModel);
 const updateListing=updateOne(listingModel);
 const deleteListing=deletOne(listingModel)
+
+
 const getLoggedUserListing=asyncHandler(async(req,res,next)=>{
-    const listing =await listingModel.find({user:req.currentUser._id});
+    let filterObject={}
+    if(req?.query){
+        console.log(req.query);
+        filterObject={...req.query}
+
+    }
+    console.log(filterObject)
+    const listing =await listingModel.find({user:req.currentUser._id,...filterObject});
     if (!listing){
         return next (new appError("there is no listing for this user"))
     }
     res.status(200).json({data:listing})
+    
+})
+
+const acceptListing=asyncHandler(async(req,res,next)=>{
+    const listing=await listingModel.findByIdAndUpdate(req.params.id,{
+        post:true,
+        pending:false,
+        rejected:false
+
+    },{new:true})
+    if(!listing){
+        return next(new appError(`there is no listing for this id ${req.params.id}`,400));
+    }
+    listing.save();
+
+    res.status(200).json({data:listing});
+
+})
+
+const rejectListing=asyncHandler(async(req,res,next)=>{
+    const listing=await listingModel.findByIdAndUpdate(req.params.id,{
+      
+        pending:false,
+        rejected:true,
+        post:false,
+
+    },{new:true})
+    if(!listing){
+        return next(new appError(`there is no listing for this id ${req.params.id}`,400));
+    }
+    listing.save();
+
+    res.status(200).json({data:listing});
 })
 
 
 
 
 
-module.exports={creatListing,uploadlistingImag,getAllListing,getSpesificListing,deleteListing,updateListing,reasizeImage,getLoggedUserListing}
+module.exports={creatListing,uploadlistingImag,getAllListing,getSpesificListing,deleteListing,updateListing,reasizeImage,getLoggedUserListing
+    ,acceptListing,
+    rejectListing 
+
+}
 
 

@@ -43,6 +43,10 @@ const userShema=  mongoose.Schema({
         type:Boolean,
         default:true,
     },
+    Balance:{
+        type:Number,
+        default:3
+    },
     passwordChangedAt:{
         type:Date,
     },
@@ -50,14 +54,13 @@ const userShema=  mongoose.Schema({
     passwordResetCode:String,
     passwordResetExpires:Date,
     passwordResetVerified:Boolean,
-    
-
+   
+     
     favourite:[{
         type:mongoose.Schema.ObjectId,
         ref:"listing"
        
     }],
-
 
     addresses:[{
 
@@ -70,8 +73,6 @@ const userShema=  mongoose.Schema({
 
     }]
 
-
-
 },{timestamps:true})
 
 
@@ -83,12 +84,12 @@ const setImageUrl=(doc)=>{
     }
 }
 
-
 userShema.post("init",(doc)=>{
     setImageUrl(doc);
 })
 userShema.post("save",(doc)=>{
     setImageUrl(doc)
+   
 })
 
 userShema.pre("save",async function(next){

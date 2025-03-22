@@ -21,7 +21,7 @@ const listingSchema = mongoose.Schema(
     },
 
     "area": {
-      type: String,
+      type: Number,
     },
 
     "sale or rent": {
@@ -136,12 +136,30 @@ const listingSchema = mongoose.Schema(
     "down payment": {
       type: String,
     },
+
     "lat":{
       type:Number
     },
     "long":{
       type:Number
-    }
+    },
+
+
+    "post":{
+      type:Boolean,
+      default:false
+
+    },
+    "pending":{
+      type:Boolean,
+      default:true,
+    },
+    "rejected":{
+      type:Boolean,
+      default:false
+    },
+ 
+
 
   },
   {

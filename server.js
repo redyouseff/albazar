@@ -8,8 +8,27 @@ const {dbConnection}=require('./config/dbConnection');
 const { globelError } = require("./middlewares/globelError");
 const mountRoute = require("./routes/mainRoute");
 const { app, server } = require("./config/socker");
+const { Vonage } = require('@vonage/server-sdk')
 
 
+
+
+// const vonage = new Vonage({
+//   apiKey: "916538e5",
+//   apiSecret: "jaWCkxLECq94kkqz"
+// })
+
+// const from = "Vonage APIs"
+// const to = "+201026964097"
+// const text = 'A text message sent using the Vonage SMS API'
+
+// async function sendSMS() {
+//     await vonage.sms.send({to, from, text})
+//         .then(resp => { console.log('Message sent successfully'); console.log(resp); })
+//         .catch(err => { console.log('There was an error sending the messages.'); console.error(err); });
+// }
+
+// sendSMS();
 
 
 

@@ -15,11 +15,13 @@ const sendMessage=asyncHandler(async(req,res,next)=>{
     req.body.senderId=senderId
 
     const message=await messageModel.create(req.body);
+
     if(!message){
         return next (new appError("there is erro on creating message",400));
     }
 
     const receiverSocketId=getReceiverSocketId(receiverId);
+
     if(receiverSocketId){
         io.to(receiverSocketId).emit("newMessage",message);
         
@@ -72,7 +74,7 @@ const getUsersForSidebar = asyncHandler(async (req, res, next) => {
       },
       {
         $match: {
-          "users._id": { $ne: loggedInUserId } // Exclude the logged-in user
+          "users._id": { $ne: loggedInUserId }
         }
       },
       {
@@ -82,6 +84,7 @@ const getUsersForSidebar = asyncHandler(async (req, res, next) => {
         }
       }
     ]);
+   
   
     // Extract only the user data
     const filteredUsers = usersWithMessages.map(item => item.user);
@@ -104,8 +107,6 @@ const getMessages=asyncHandler(async(req,res,next)=>{
     res.status(200).json(message)  
 
 })
-
-
 
 
 

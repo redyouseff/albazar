@@ -1,6 +1,9 @@
 const express=require("express");
-const { creatListing, uploadlistingImag, getAllListing, getSpesificListing, updateListing, deleteListing ,reasizeImage, getLoggedUserListing} = require("../services/listingService");
-const { protect } = require("../services/authServices");
+const { creatListing, uploadlistingImag, getAllListing, getSpesificListing, updateListing, deleteListing ,reasizeImage, getLoggedUserListing
+    ,acceptListing,
+    rejectListing 
+} = require("../services/listingService");
+const { protect, allowedTo } = require("../services/authServices");
 
 
 const router=express.Router();
@@ -11,13 +14,17 @@ const router=express.Router();
 router.route("/userListing").get(protect,getLoggedUserListing)
 router.route('/').post(protect,uploadlistingImag,reasizeImage,(req,res,next)=>{
     req.body.user=req.currentUser._id;
-    next();
+    next();    
 },creatListing)
 .get(getAllListing)
 router.route("/:id").get(getSpesificListing)
 .put(uploadlistingImag,updateListing)
 .delete(deleteListing)
 
+
+
+router.route("/accept/:id").put(protect,allowedTo("admin"),acceptListing)
+router.route("/reject/:id").put(protect,allowedTo("admin"),rejectListing)
 
 
 

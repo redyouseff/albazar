@@ -3,12 +3,26 @@ const asyncHandler = require('express-async-handler')
 const { model, models } = require('mongoose')
 const { appError } = require('../utilts/appError')
 const apiFeatures = require('../utilts/apiFeatures')
+const userModel = require('../models/userModel')
+
 
 
 const createOne=(model)=>{
     return asyncHandler(async(req,res,next)=>{
       
         const doc=await model.create(req.body)
+        if(model.modelName=="listing"){
+            const user= await userModel.findById(req.currentUser._id);
+            const Balance=user.Balance;
+            if(Balance<1){
+                return next (new appError(`you have reach to the max number of posts please charge the balance`,400));
+            }
+         
+    
+            user.Balance=Balance-1;
+           await  user.save();
+   
+        }
         res.status(200).json({data:doc})
     })
 }
@@ -78,7 +92,6 @@ const getAll=(model)=>{
     return asyncHandler(async(req,res,next)=>{
         let filter={}
         if(req.filterObj){
-            console.log(req.filterObj)
             filter=req.filterObj 
 
         }
@@ -102,10 +115,6 @@ const getAll=(model)=>{
         res.status(200).json({paginate:paginationRedult,data:result})
         
         
-
-
-
-
 
     })
 }
