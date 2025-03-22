@@ -15,8 +15,8 @@ const changePasswordValidator=[
     check("confirmPassword").notEmpty().withMessage("confirmPassword can not be empty"),
     check("password").notEmpty().withMessage("password is required")
     .custom(async (val,{req})=>{
-        const user=await userModel.findById(req.params.id)
-        console.log("jjjj")
+        const user=await userModel.findById(req.currentUser._id)
+        console.log(req.params.id)
         if(!user){
             throw new Error("user not found");
         }

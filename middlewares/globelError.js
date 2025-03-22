@@ -14,9 +14,10 @@ const globelError=(err,req,res,next)=>{
     else {
        
         if(err.name=="JsonWebTokenError") err=hanleInvalidSignature();
-        if(err.name=="TokenExpiredError") err=new appError("expired token ",404)
+        if(err.name=="TokenExpiredError") err=new appError("expired token ",403)
 
             sendErrorForProd(err,res);
+
     }
    
   
@@ -47,7 +48,6 @@ sendErrorForDev=(err,res)=>{
         stack:err.stack
     })
    
-
 }
 
 module.exports= {globelError}   
