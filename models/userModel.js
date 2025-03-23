@@ -51,7 +51,7 @@ const userShema=  mongoose.Schema({
         type:Date,
     },
     birthday :{
-        type:String
+        type:Date
     },
     city:{
         type:String
