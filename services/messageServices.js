@@ -21,16 +21,29 @@ const sendMessage=asyncHandler(async(req,res,next)=>{
     }
 
     const receiverSocketId=getReceiverSocketId(receiverId);
+    const senderSocketId=getReceiverSocketId(senderId);
+
 
     if(receiverSocketId){
         io.to(receiverSocketId).emit("newMessage",message);
         
     }
 
+    
+    if(receiverSocketId){
+      io.to(receiverSocketId).emit("updateSidebar");
+    }
+    if(senderSocketId){
+      io.to(senderSocketId).emit("updateSidebar");
+    }
+
+
     res.status(200).json({message});
     
     
 })
+
+
 
 
 
@@ -156,7 +169,6 @@ const getMessages=asyncHandler(async(req,res,next)=>{
     res.status(200).json(message)  
 
 })
-
 
 
 
