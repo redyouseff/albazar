@@ -50,6 +50,12 @@ const userShema=  mongoose.Schema({
     passwordChangedAt:{
         type:Date,
     },
+    birthday :{
+        type:String
+    },
+    city:{
+        type:String
+    },
 
     passwordResetCode:String,
     passwordResetExpires:Date,
@@ -62,16 +68,8 @@ const userShema=  mongoose.Schema({
        
     }],
 
-    addresses:[{
 
-        id:{type:mongoose.Schema.Types.ObjectId},
-        alias:String,
-        details:String,
-        phone:String,
-        city:String,
-        postalCode:String
-
-    }]
+  
 
 },{timestamps:true})
 
