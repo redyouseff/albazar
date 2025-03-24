@@ -1,6 +1,9 @@
 const { appError } = require("../utilts/appError");
 
 const globelError=(err,req,res,next)=>{
+    if(err.name=="TokenExpiredError"){
+        err.statusCode=403
+    }
    
     err.statusCode=err.statusCode||400;
     err.status=res.status || "failed"

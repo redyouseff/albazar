@@ -7,6 +7,7 @@ const { v4: uuidv4 } = require('uuid');
 const sharp = require("sharp");
 const { appError } = require("../utilts/appError");
 const { post } = require("../routes/userRoute");
+const userModel = require("../models/userModel");
 
 
 
@@ -97,12 +98,25 @@ const rejectListing=asyncHandler(async(req,res,next)=>{
 })
 
 
+const getFollowinglisting=asyncHandler(async(req,res,next)=>{
+    const following=req.currentUser.following;
+ 
+    const listing=await listingModel.find({
+        user:{$in:following}
+    })
+
+    res.status(200).json({data:listing})
+
+})
+
+
 
 
 
 module.exports={creatListing,uploadlistingImag,getAllListing,getSpesificListing,deleteListing,updateListing,reasizeImage,getLoggedUserListing
     ,acceptListing,
-    rejectListing 
+    rejectListing,
+    getFollowinglisting
 
 }
 

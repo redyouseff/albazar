@@ -133,14 +133,38 @@ const deleteLoggedUserData =asyncHandler(async(req,res,next)=>{
 
 
 
+const folloewUser=asyncHandler(async(req,res,next)=>{
+    const updateLoggedUser=await userModel.findByIdAndUpdate(req.currentUser._id,{
+        $addToSet:{following:req.params.id}
+    })
+    const updateUser=await userModel.findByIdAndUpdate(req.params.id,{
+        $addToSet:{followers:req.currentUser._id}
+    });
+    res.status(200).json({message:`user follow this id ${req.params.id} success`})
+})
 
+const unFollowUser=asyncHandler(async(req,res,next)=>{
+    const updateLoggedUser =await userModel.findByIdAndUpdate(req.currentUser._id,{
+        $pull:{following:req.params.id}
+    })
+
+    const updateUser=await userModel.findByIdAndUpdate(req.params.id,{
+        $pull:{followers:req.currentUser._id},
+    })
+
+    res.status(200).json({message:`user unfollow this id ${req.params.id} success`})
+
+})
 
 
 
 
 module.exports=  {creagteUser,getSpesificUser,updateUser,deleteUser,getAllUser,reasizeImage,uploadImage,getLoggedUser,updateLoggedUserPassword
     ,updateLoggedUserData,
-    deleteLoggedUserData
+    deleteLoggedUserData,
+    folloewUser,
+    unFollowUser
+    
 }
 
 

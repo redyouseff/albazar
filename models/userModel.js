@@ -67,9 +67,23 @@ const userShema=  mongoose.Schema({
         ref:"listing"
        
     }],
+    followers:[{
+        type:mongoose.Schema.ObjectId,
+        ref:"user",
+        default:[]
+
+    }],
 
 
-  
+    following:[{
+        type:mongoose.Schema.ObjectId,
+        ref:"user",
+        default:[]
+
+    }]
+
+
+    
 
 },{timestamps:true})
 
@@ -80,6 +94,7 @@ const setImageUrl=(doc)=>{
         const imageUrl=`${process.env.BASE_URL}/users/${doc.profileImage}`;
         doc.profileImage=imageUrl;
     }
+
 }
 
 userShema.post("init",(doc)=>{
@@ -104,8 +119,4 @@ userShema.pre("save",async function(next){
 
 
 const userModel=mongoose.model("user",userShema)
-
-
-
-
 module.exports=userModel;
