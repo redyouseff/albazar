@@ -112,8 +112,9 @@ const updateLoggedUserData =asyncHandler(async(req,res,next)=>{
         firstname:req.body.firstname,
         lastname:req.body.lastname,
         email:req.body.email,
-        phone:req.body.phone
-
+        phone:req.body.phone,
+        city:req.body.city,
+        birthday:req.body.birthday
 
     },{new:true});
 

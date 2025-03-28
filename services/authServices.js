@@ -15,7 +15,10 @@ const signUp=asyncHandler(async(req,res,next)=>{
         lastname:req.body.lastname,
         email:req.body.email,
         password:req.body.password,
-        phone:req.body.phone
+        phone:req.body.phone,
+        city:req.body.city,
+        birthday:req.body.birthday
+
     })
 
     const token=createToken(user._id)

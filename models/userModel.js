@@ -50,7 +50,8 @@ const userShema=  mongoose.Schema({
     passwordChangedAt:{
         type:Date,
     },
-    birthday :{
+    
+    birthday:{
         type:Date
     },
     city:{
