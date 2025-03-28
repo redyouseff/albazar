@@ -92,6 +92,7 @@ class apiFeatures{
         pagination.currentPage=page
         pagination.limit=limit;
         pagination.numbeOfPage=Math.ceil(countDocuments / limit);
+        pagination.totalResults=countDocuments
         if(endIndex<countDocuments){
             pagination.next=(page+1);
         }

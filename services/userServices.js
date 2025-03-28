@@ -115,7 +115,7 @@ const updateLoggedUserData =asyncHandler(async(req,res,next)=>{
         phone:req.body.phone,
         city:req.body.city,
         birthday:req.body.birthday
-
+        
     },{new:true});
 
     res.status(200).json({data:user})
