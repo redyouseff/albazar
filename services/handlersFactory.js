@@ -14,9 +14,9 @@ const createOne=(model)=>{
         if(model.modelName=="listing"){
             const user= await userModel.findById(req.currentUser._id);
             const Balance=user.Balance;
-            if(Balance<1){
-                return next (new appError(`you have reach to the max number of posts please charge the balance`,400));
-            }
+            // if(Balance<1){
+            //     return next (new appError(`you have reach to the max number of posts please charge the balance`,400));
+            // }
          
     
             user.Balance=Balance-1;
