@@ -32,7 +32,7 @@ router.route("/reject/:id").put(protect,allowedTo("admin"),rejectListing)
 
 
 
-module.exports=router;
+module.exports=router;   
 
 
 

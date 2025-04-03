@@ -11,24 +11,26 @@ const { app, server } = require("./config/socker");
 const { Vonage } = require('@vonage/server-sdk')
 
 
-
-
 // const vonage = new Vonage({
 //   apiKey: "916538e5",
 //   apiSecret: "jaWCkxLECq94kkqz"
 // })
 
-// const from = "Vonage APIs"
-// const to = "+201026964097"
-// const text = 'A text message sent using the Vonage SMS API'
+// const from = "+201050625339"; // Your Vonage virtual number
+// const to = "+201026964097"; // Egyptian number with +20
+// const text = 'Hello from Vonage!';
 
 // async function sendSMS() {
-//     await vonage.sms.send({to, from, text})
-//         .then(resp => { console.log('Message sent successfully'); console.log(resp); })
-//         .catch(err => { console.log('There was an error sending the messages.'); console.error(err); });
+//   try {
+//     const resp = await vonage.sms.send({ to, from, text });
+//     console.log('Message sent:', resp);
+//   } catch (err) {
+//     console.error('Error:', err);
+//   }
 // }
 
 // sendSMS();
+
 
 
 
@@ -51,7 +53,12 @@ app.use(express.urlencoded({ extended: true }));
 
 dbConnection();
 
+
+
+
 mountRoute(app)
+
+
 
 
 app.use("*",(req,res,next)=>{

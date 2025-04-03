@@ -8,6 +8,7 @@ const { v4: uuidv4 } = require('uuid');
 const bcrypt=require("bcrypt")
 const createToken = require('../utilts/createToken')
 const { getAll } = require('./handlersFactory')
+const listingModel = require('../models/listingModel')
 
 
 
@@ -45,10 +46,15 @@ res.status(200).json({state:"success",data:user})
 
 const getSpesificUser=asyncHandler(async(req,res,next)=>{
     const user = await userModel.findById(req.params.id)
+    let numberOfListing=0;
+    const listing=await listingModel.find({user:req.params.id})
+    if(listing){
+        numberOfListing=listing.length
+    }
     if(!user){
         next(new appError(`there is no user for this id ${req.params.id}`,400))
     }
-    res.status(200).json({state:"success",data:user});
+    res.status(200).json({state:"success",data:user,numberOfListing:numberOfListing});
 })
 
 
@@ -89,6 +95,7 @@ const deleteUser=asyncHandler(async(req,res,next)=>{
 
 const getLoggedUser=asyncHandler(async(req,res,next)=>{
     req.params.id=req.currentUser._id
+
     next()
 })
 

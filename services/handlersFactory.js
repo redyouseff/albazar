@@ -7,6 +7,7 @@ const userModel = require('../models/userModel')
 
 
 
+
 const createOne=(model)=>{
     return asyncHandler(async(req,res,next)=>{
       
@@ -23,6 +24,7 @@ const createOne=(model)=>{
            await  user.save();
    
         }
+
         res.status(200).json({data:doc})
     })
 }
@@ -88,7 +90,6 @@ const getOne=(model,populatetionOptions)=>{
 
 const getAll=(model)=>{
    
-
     return asyncHandler(async(req,res,next)=>{
         let filter={}
         if(req.filterObj){
