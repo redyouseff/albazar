@@ -169,10 +169,6 @@ const listingSchema = mongoose.Schema(
   }
 );
 
-
-
-
-
 const setImageUrl = (doc) => {
   if (doc.images && Array.isArray(doc.images)) {
     const image = doc.images.map((item) => `${process.env.BASE_URL}/listing/${item}`);
@@ -184,15 +180,9 @@ listingSchema.post("init", (doc) => {
   setImageUrl(doc);
 });
 
+listingSchema.post("save", (doc) => {
 
-listingSchema.pre("save", function (next) {
-  if (this.isModified("images")) {
-    // Strip base URL if present
-    this.images = this.images.map((img) => {
-      return img.replace(`${process.env.BASE_URL}/listing/`, "");
-    });
-  }
-  next();
+  setImageUrl(doc);
 });
 
 const listingModel = mongoose.model("listing", listingSchema);

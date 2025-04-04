@@ -75,7 +75,6 @@ const acceptListing=asyncHandler(async(req,res,next)=>{
     if(!listing){
         return next(new appError(`there is no listing for this id ${req.params.id}`,400));
     }
-    listing.save();
 
     res.status(200).json({data:listing});
 
@@ -92,7 +91,7 @@ const rejectListing=asyncHandler(async(req,res,next)=>{
     if(!listing){
         return next(new appError(`there is no listing for this id ${req.params.id}`,400));
     }
-    listing.save();
+  
 
     res.status(200).json({data:listing});
 })
