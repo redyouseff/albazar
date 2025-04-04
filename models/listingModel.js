@@ -180,9 +180,9 @@ listingSchema.post("init", (doc) => {
   setImageUrl(doc);
 });
 
-listingSchema.post("save", (doc) => {
-  setImageUrl(doc);
-});
+// listingSchema.post("save", (doc) => {
+//   setImageUrl(doc);
+// });
 
 const listingModel = mongoose.model("listing", listingSchema);
 

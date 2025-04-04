@@ -45,7 +45,7 @@ const userShema=  mongoose.Schema({
     },
     Balance:{
         type:Number,
-        default:3
+        default:5
     },
     passwordChangedAt:{
         type:Date,
@@ -120,4 +120,4 @@ userShema.pre("save",async function(next){
 
 
 const userModel=mongoose.model("user",userShema)
-module.exports=userModel;
+module.exports=userModel;  
