@@ -14,6 +14,9 @@ const sendMessage=asyncHandler(async(req,res,next)=>{
     req.body.receiverId=receiverId;
     req.body.senderId=senderId
 
+    const sender = await userModel.findById(senderId).select('firstname lastname profileImage');
+    
+
     const message=await messageModel.create(req.body);
 
     if(!message){
@@ -23,9 +26,19 @@ const sendMessage=asyncHandler(async(req,res,next)=>{
     const receiverSocketId=getReceiverSocketId(receiverId);
     const senderSocketId=getReceiverSocketId(senderId);
 
+    const notificationData = {
+      message: text,
+      senderName: `${sender.firstname} ${sender.lastname}`,
+      senderImage: `${process.env.BASE_URL}/users/${sender.profileImage}`,
+      timestamp: new Date(),
+      messageId: message._id
+  };
+
+
 
     if(receiverSocketId){
         io.to(receiverSocketId).emit("newMessage",message);
+        io.to(receiverSocketId).emit("newMessageNotification", notificationData);
         
     }
 

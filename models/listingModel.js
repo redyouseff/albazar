@@ -13,7 +13,7 @@ const listingSchema = mongoose.Schema(
     "description": {
       type: String,
       required: [true, "description is required"],
-      minLength: [30, "too short description"],
+      minLength: [10, "too short description"],
     },
 
     "property type": {
